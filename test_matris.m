@@ -1,6 +1,5 @@
-%saker som måste göras:
+%SAKER SOM MÅSTE GÖRAS!!!!:
 
-%poppa in random plast och jelly
 %ta bort habitat
 %göra så att jelly och sea rör sig 
 %Göra den stora matrisen med färger och sånt 
@@ -36,9 +35,9 @@ Any = A;
 A1 = A
 for i=2:n
     for j=2:m
-        %habitat loss sats
-        if A(i,j)== 1 %|| A(n,m) is in habitat region
-            for a=-1:1:1
+       
+        if A(i,j)== 1 % & A(i,j)=1 is in habitat region
+            for a=-1:1:1 %check the position around the seaturtule
                 for b=-1:1:1
                     n1=a+i;
                     m1=b+j;
@@ -74,8 +73,8 @@ end
  
 for i=2:n
     for j=2:m
-        if Any(i,j)== 2
-            for a=-1:1:1
+        if Any(i,j)== 2 %check where there are jellyfish
+            for a=-1:1:1 %check the position around the jellyfish
                 for b=-1:1:1
                     n1=a+i;
                     m1=b+j;
@@ -103,9 +102,9 @@ v2=zeros(N,1); % e columnvector with N rows and one column
 
 A = 4*ones(5);
 %Seaturtle =1
-% %Jellyfish=2
-% %Plastic=3
-% %Habitat = 4 
+%Jellyfish=2
+%Plastic=3
+%Habitat = 4 
 A(2,3) = 1;
 A(4,3) = 1;
 A(1,4) = 1;
@@ -117,14 +116,29 @@ A(4,4) = 2;
 A(3,2) = 1;
 A(3,1) = 2;
 A=[v1;v2 A v2;v1]; % the matrix with a frame of zeros
-n=5;
-m=5;
-Any = A;       
 
-x=find(A==4)
-i=randsample(x,3)
-%sub2ind()==2;
 
+[row,col] = find(A==4); % find out the positions of 2 in matrix a
+x = [row col];% save all the positions in a matrix, where the first column refers to the rows and second column refers to the columns of the positions of 2 in matrix a
+q=randsample(1:length(x),????);% randomly extract ???? (can be any number) positions from x. This is done by randomly choosing one row fro the x matrix
+subst=[];
+
+for i=q
+     subst =[subst; x(i,:)];
+end
+
+A(sub2ind(size(A),subst(:,1),subst(:,2))) = 2; %Substituera habitat till jelly
+
+[row,col] = find(A==4); % find out the positions of 2 in matrix a
+x = [row col];% save all the positions in a matrix, where the first column refers to the rows and second column refers to the columns of the positions of 2 in matrix a
+q=randsample(1:length(x),????);% randomly extract ???? (can be any number) positions from x. This is done by randomly choosing one row fro the x matrix
+subst=[];
+
+for i=q
+     subst =[subst; x(i,:)];
+end
+
+A(sub2ind(size(A),subst(:,1),subst(:,2))) = 3; %Substituera habitat till plast
 
 
 
